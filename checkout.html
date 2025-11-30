@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Оформление заказа — масло ши</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <div class="logo">Честное масло ши</div>
+      <nav class="nav">
+        <a href="index.html#hero">Главная</a>
+        <a href="index.html#catalog">Каталог</a>
+        <a href="index.html#contacts">Контакты</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="checkout">
+    <div class="container">
+      <h1>Оформление заказа</h1>
+
+      <div id="emptyMessage" class="empty-message" style="display:none;">
+        <p>Ваша корзина пуста. <a href="index.html#catalog">Перейти в каталог</a></p>
+      </div>
+
+      <div class="checkout-grid" id="checkoutGrid">
+        <section class="order-summary">
+          <h2>Ваш заказ</h2>
+          <div id="orderSummary"></div>
+        </section>
+
+        <section class="order-form">
+          <h2>Контактные данные</h2>
+          <form id="checkoutForm">
+            <label>
+              Имя *
+              <input type="text" name="name" required />
+            </label>
+            <label>
+              Телефон *
+              <input type="tel" name="phone" required />
+            </label>
+            <label>
+              Email
+              <input type="email" name="email" />
+            </label>
+            <label>
+              Удобный способ связи
+              <input type="text" name="contactHandle" placeholder="@ник в Telegram / ссылка ВК / другое" />
+            </label>
+            <label>
+              Адрес доставки
+              <textarea name="address" rows="3" placeholder="Город, улица, дом, квартира"></textarea>
+            </label>
+            <label>
+              Комментарий к заказу
+              <textarea name="comment" rows="3"></textarea>
+            </label>
+
+            <!-- Выбор, где удобнее продолжить оформление -->
+            <fieldset class="channel-fieldset">
+              <legend>Где вам удобнее продолжить оформление?</legend>
+
+              <label class="channel-option">
+                <input type="radio" name="orderChannel" value="site" checked />
+                Оформить заказ на сайте (через эту форму)
+              </label>
+
+              <label class="channel-option">
+                <input type="radio" name="orderChannel" value="telegram" />
+                Продолжить в Telegram
+              </label>
+
+              <label class="channel-option">
+                <input type="radio" name="orderChannel" value="vk" />
+                Продолжить во ВКонтакте
+              </label>
+
+              <label class="channel-option">
+                <input type="radio" name="orderChannel" value="instagram" />
+                Продолжить в Instagram
+              </label>
+
+              <p class="channel-hint">
+                Мы увидим ваш выбор и свяжемся с вами в указанном канале.
+              </p>
+            </fieldset>
+
+            <button type="submit" class="btn btn-primary btn-full">Отправить заказ</button>
+          </form>
+          <div id="formMessage" class="form-message"></div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 Честное масло ши. Все права защищены.</p>
+    </div>
+  </footer>
+
+  <script src="js/checkout.js"></script>
+</body>
+</html>
