@@ -1,4 +1,4 @@
-// Простой каталог: одна карточка масла ши (можно расширить позже)
+// Простой каталог: три карточки масла ши (можно расширить позже)
 const STORAGE_KEY = "shop_cart";
 
 const products = [
@@ -38,6 +38,16 @@ function loadCart() {
   } catch (e) {
     console.error("Ошибка чтения корзины:", e);
     return [];
+  }
+}
+function trackEvent(name, params = {}) {
+  // GA4
+  if (typeof gtag === "function") {
+    gtag("event", name, params);
+  }
+  // Яндекс.Метрика (используем YM_ID из window)
+  if (typeof ym === "function" && typeof window.YM_ID === "number") {
+    ym(window.YM_ID, "reachGoal", name.toUpperCase());
   }
 }
 
@@ -81,6 +91,19 @@ function addToCart(productId) {
     if (!product) return;
     cart.push({ ...product, qty: 1 });
   }
+    // отслеживаем добавление в корзину
+  const product = products.find((p) => p.id === productId);
+  if (product) {
+    trackEvent("add_to_cart", {
+      currency: "RUB",
+      value: product.price,
+      items: [{
+        item_id: product.id,
+        item_name: product.title
+      }]
+    });
+  }
+
   saveCart();
   updateCartUI();
 }
