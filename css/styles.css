@@ -123,7 +123,7 @@ a {
   justify-content: center;
 }
 .hero-logo {
-  max-width: 60px;      /* размер лого */
+  max-width: 260px;      /* размер лого */
   width: 100%;
   height: auto;
   display: block;
