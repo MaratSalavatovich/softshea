@@ -1,5 +1,16 @@
 const STORAGE_KEY = "shop_cart";
 
+function trackEvent(name, params = {}) {
+  // GA4
+  if (typeof gtag === "function") {
+    gtag("event", name, params);
+  }
+  // Яндекс.Метрика (используем YM_ID из window)
+  if (typeof ym === "function" && typeof window.YM_ID === "number") {
+    ym(window.YM_ID, "reachGoal", name.toUpperCase());
+  }
+}
+
 function loadCart() {
   try {
     const data = localStorage.getItem(STORAGE_KEY);
