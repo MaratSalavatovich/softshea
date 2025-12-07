@@ -107,6 +107,34 @@ function initCheckoutForm() {
       messageBox.className = "form-message form-message_error";
       return;
     }
+    // ---- PURCHASE TRACKING ----
+
+    // 1. Считаем итоговую сумму заказа
+    const totalPrice = cart.reduce((sum, item) => sum + item.qty * item.price, 0);
+
+    // 2. Формируем структуру товаров (как требует GA4)
+    const itemsForAnalytics = cart.map(item => ({
+        item_id: item.id,
+        item_name: item.title,
+        price: item.price,
+        quantity: item.qty
+    }));
+
+    // 3. Отправляем событие в GA4
+    trackEvent("purchase", {
+        currency: "RUB",
+        value: totalPrice,
+        items: itemsForAnalytics,
+        channel: channel,        // сайт / Telegram / VK / Instagram
+        customer_name: name,     // можно удалить, если не хочешь отправлять имя
+    });
+
+    // 4. Отправляем цель в Яндекс.Метрику
+    if (typeof ym === "function" && typeof window.YM_ID === "number") {
+        ym(window.YM_ID, "reachGoal", "PURCHASE");
+    }
+
+    // ---- END PURCHASE ----
 
     console.log("Заказ:", {
       cart,
