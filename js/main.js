@@ -113,6 +113,18 @@ function removeFromCart(productId) {
   saveCart();
   updateCartUI();
 }
+function initCheckoutTracking() {
+  const link = document.getElementById("beginCheckoutLink");
+  if (!link) return;
+
+  link.addEventListener("click", () => {
+    const totalPrice = cart.reduce((sum, item) => sum + item.qty * item.price, 0);
+    trackEvent("begin_checkout", {
+      currency: "RUB",
+      value: totalPrice
+    });
+  });
+}
 
 function updateCartUI() {
   const cartCount = document.getElementById("cartCount");
@@ -198,4 +210,5 @@ document.addEventListener("DOMContentLoaded", () => {
   initCartPanel();
   initEventHandlers();
   updateCartUI();
+  initCheckoutTracking();  // ← ДОБАВЛЕНИЕ
 });
